@@ -38,10 +38,10 @@ import java.util.stream.Collectors;
 public class BooleanSearchEngine implements SearchEngine {
 
     private String fileName;
-    int count;
-    String key;
+    private int count;
+    private String key;
 
-    Map<String, List<PageEntry>> pageEntryMap = new HashMap<>();
+    private Map<String, List<PageEntry>> pageEntryMap = new HashMap<>();
 
     public BooleanSearchEngine(File pdfsDir) throws IOException {
 
@@ -76,14 +76,14 @@ public class BooleanSearchEngine implements SearchEngine {
     public List<PageEntry> search(String word) {
         // тут реализуйте поиск по слову
 
-        List<PageEntry> l = pageEntryMap.get(word.toLowerCase());
-        Collections.sort(l);
-        return l;
+        List<PageEntry> searchWord = pageEntryMap.get(word.toLowerCase());
+
+        return searchWord;
     }
 
 
-    public Map<String, List<PageEntry>> pageEntryMapPut(int i, int count, String key) {
-        PageEntry pageEntry = new PageEntry(fileName, i, count);
+    public Map<String, List<PageEntry>> pageEntryMapPut(int page, int count, String key) {
+        PageEntry pageEntry = new PageEntry(fileName, page, count);
 
         List<PageEntry> pageEntryList;
 
@@ -94,7 +94,9 @@ public class BooleanSearchEngine implements SearchEngine {
         }
 
         pageEntryList.add(pageEntry);
+        Collections.sort(pageEntryList);
         pageEntryMap.put(key, pageEntryList);
+
         return pageEntryMap;
     }
 }
