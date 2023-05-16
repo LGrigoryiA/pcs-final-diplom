@@ -37,14 +37,13 @@ import java.util.stream.Collectors;
 
 public class BooleanSearchEngine implements SearchEngine {
 
-    private String fileName;
-    private int count;
-    private String key;
 
     private Map<String, List<PageEntry>> pageEntryMap = new HashMap<>();
 
     public BooleanSearchEngine(File pdfsDir) throws IOException {
-
+        String fileName;
+        int count;
+        String key;
         for (File file : pdfsDir.listFiles()) {
             fileName = file.getName();
             var doc = new PdfDocument(new PdfReader(file));
@@ -65,7 +64,7 @@ public class BooleanSearchEngine implements SearchEngine {
                 for (Map.Entry<String, Integer> entry : freqs.entrySet()) {
                     count = entry.getValue();
                     key = entry.getKey();
-                    pageEntryMapPut(i, count, key);
+                    pageEntryMapPut(i, count, key, fileName);
                 }
 
             }
@@ -82,7 +81,7 @@ public class BooleanSearchEngine implements SearchEngine {
     }
 
 
-    public Map<String, List<PageEntry>> pageEntryMapPut(int page, int count, String key) {
+    public Map<String, List<PageEntry>> pageEntryMapPut(int page, int count, String key, String fileName) {
         PageEntry pageEntry = new PageEntry(fileName, page, count);
 
         List<PageEntry> pageEntryList;
