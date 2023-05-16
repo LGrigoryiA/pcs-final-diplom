@@ -96,7 +96,6 @@ public class BooleanSearchEngine implements SearchEngine {
         pageEntryList.add(pageEntry);
         Collections.sort(pageEntryList);
         pageEntryMap.put(key, pageEntryList);
-
         return pageEntryMap;
     }
 }
